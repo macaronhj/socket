@@ -1,13 +1,12 @@
 package com.heejin.socketClient;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+import com.heejin.socketClient.view.MainView;
+
 public class SocketClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SocketClientApplication.class, args);
+		MainView mainView = new MainView();
 	}
 
 }
