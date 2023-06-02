@@ -1,6 +1,7 @@
 package com.heejin.socketClient.view;
 
 
+import com.heejin.socketClient.core.Client;
 import com.heejin.socketClient.core.Protocol;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,11 +12,17 @@ import javax.swing.table.DefaultTableModel;
 
 public class MainView extends JFrame {
     private static final Logger logger = LogManager.getLogger(MainView.class);
+    private Client client;
 
     private UserListPanel panel_userList;
     private ChatListPanel panel_chatList;
 
     public MainView() {
+        initializeDisplay();
+    }
+
+    public MainView(Client client) {
+        this.client = client;
         initializeDisplay();
     }
 

@@ -7,23 +7,25 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginView extends JFrame {
 
     private static final Logger logger = LogManager.getLogger(LoginView.class);
     private Client client;
 
-    private LoginHandler loginHandler;
-    private JLabel label_id = new JLabel("ID");
-    private JLabel label_pw = new JLabel("PW");
+    private final JLabel label_id = new JLabel("ID");
+    private final JLabel label_pw = new JLabel("PW");
     public JTextField field_id = new JTextField();
     public JPasswordField field_pw = new JPasswordField();
-    private JButton button_login = new JButton("로그인");
-    private JButton button_join = new JButton("회원가입");
+    private final JButton button_login = new JButton("로그인");
+    private final JButton button_join = new JButton("회원가입");
     Font font = new Font("고딕체", Font.BOLD, 17);
 
-    public LoginView() {
-        loginHandler = new LoginHandler(this, client);
+    public LoginView(Client client) {
+        this.client = client;
         initializeDisplay();
         initialize();
     }
@@ -45,18 +47,37 @@ public class LoginView extends JFrame {
         label_pw.setBounds(55, 250, 80, 40);
 
         this.add(field_id);
-        field_pw.addActionListener(loginHandler);
+        field_pw.addActionListener(e -> {
+            Object source = e.getSource();
+
+        });
+
+
         this.add(field_pw);
         field_id.setBounds(120, 200, 185, 40);
         field_id.getText();
         field_pw.setBounds(120, 250, 185, 40);
         field_pw.getText();
 
-        button_login.addActionListener(loginHandler);
+        button_login.addActionListener(e -> {
+            Object source = e.getSource();
+            logger.info(source);
+
+            try {
+                client.getOos().writeObject("버튼클릭");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
         
         this.add(button_login);
         button_login.setBounds(160, 300, 100, 40);
-        button_join.addActionListener(loginHandler);
+        button_join.addActionListener(e -> {
+            Object source = e.getSource();
+
+
+        });
         this.add(button_join);
         button_join.setBounds(160, 350, 100, 40);
 
