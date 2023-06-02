@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginHandler implements ActionListener{
 
@@ -25,8 +26,21 @@ public class LoginHandler implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		Object obj = ae.getSource();
+		logger.info("버튼 클릭 발생");
 
+
+		Object obj = ae.getSource();
+		logger.info(obj);
+		client = new Client("127.0.0.1", 9100);
+
+		try {
+			String str = (String) client.getOis().readObject();
+			logger.info(str);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 
