@@ -1,7 +1,7 @@
 package com.heejin.socketClient.view;
 
 
-import com.chatting.client.model.Protocol;
+import com.heejin.socketClient.core.Protocol;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
