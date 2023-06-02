@@ -1,15 +1,20 @@
 package com.heejin.socketClient.view;
 
-import com.heejin.socketClient.core.Client;
-import com.heejin.socketClient.handler.LoginHandler;
+import java.awt.Font;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
+import com.heejin.socketClient.core.Client;
 
 public class LoginView extends JFrame {
 
@@ -61,13 +66,16 @@ public class LoginView extends JFrame {
 
         button_login.addActionListener(e -> {
             Object source = e.getSource();
-            logger.info(source);
-
+            logger.info("source: "+ source);
             try {
-                client.getOos().writeObject("버튼클릭");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            	Map<String, String> map = new HashMap<String, String>();
+            	map.put("id", field_id.getText());
+            	map.put("pwd", field_pw.getText());
+				client.getOos().writeObject(map);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
         });
         
