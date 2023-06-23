@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import javax.swing.*;
 
 public class ClientReceiver extends Thread {
-	
+
 	private static final Logger logger = LogManager.getLogger(ClientReceiver.class);
 
     private final Client client;
@@ -31,6 +31,7 @@ public class ClientReceiver extends Thread {
                 logger.info(client);
                 logger.info(loginView);
                 if("로그인 성공".equals(msg)){
+                	Protocol.myID = client.getOis().readObject().toString();
                     createMainView(client);
 					if(loginView != null) {
                         loginView.dispose();
