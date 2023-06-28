@@ -1,10 +1,15 @@
 package com.heejin.socketClient.core;
 
-import com.heejin.socketClient.view.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
+import com.heejin.socketClient.view.LoginView;
+import com.heejin.socketClient.view.MainView;
 
 public class ClientReceiver extends Thread {
 
@@ -30,13 +35,14 @@ public class ClientReceiver extends Thread {
                 logger.info(msg);
                 logger.info(client);
                 logger.info(loginView);
-                if("로그인 성공".equals(msg)){
+                if("Y".equals(msg)){
+                	logger.info("client.getOis().readObject().toString();: {}",client.getOis().readObject().toString());
                 	Protocol.myID = client.getOis().readObject().toString();
                     createMainView(client);
 					if(loginView != null) {
                         loginView.dispose();
 					}
-				} else if("로그인 실패".equals(msg)) {
+				} else if("N".equals(msg)) {
 					JOptionPane.showMessageDialog(loginView, "로그인에 실패했습니다.");
 				}
 

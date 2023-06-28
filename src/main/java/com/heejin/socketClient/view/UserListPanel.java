@@ -39,6 +39,7 @@ public class UserListPanel extends JPanel {
 
     private static final Logger logger = LogManager.getLogger(UserListPanel.class);
 
+    Vector<String> onlineUserList = new Vector<String>();
 
     public UserListPanel() {
         initializeDisplay();
@@ -53,7 +54,6 @@ public class UserListPanel extends JPanel {
         label_userName.setText(Protocol.myID + "님 환영합니다.");
         label_userName.setFont(new Font("맑은고딕", Font.BOLD, 15));
 
-        Vector<String> onlineUserList = new Vector<String>();
         onlineUserList.add(Protocol.myID);
 
         JPanel panel_north = new JPanel();
@@ -77,6 +77,7 @@ public class UserListPanel extends JPanel {
     		onlineRowData.add(i);
     		onlineRowData.add(onlineUserList.get(i));
     		onlineData.add(onlineRowData);
+    		logger.info("##onlineUserList: {}", onlineUserList);
         }
     	dtm_online = new DefaultTableModel(onlineData, columnNames){
             @Override //셀 더블클릭 후 수정 안되도록 조정.
