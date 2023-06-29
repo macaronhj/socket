@@ -32,6 +32,20 @@ public class ClientReceiver extends Thread {
         while (client.isAlive()) {
             try {
                 String msg = client.getOis().readObject().toString();
+                logger.info("수신 메세지 : {}", msg);
+                String[] arr = msg.split(Protocol.seperator);
+                switch (arr[0]) {
+                    case Protocol.checkLogin:
+
+                        if("Y".equals(arr[2])){ //arr[2] 가 Y일때 로그인 성공
+                            String onlineUserNames = arr[3];
+                            logger.info("온라인 유저 목록 배열 : {}", onlineUserNames);
+                            String[] split = onlineUserNames.split(",");
+                            createMainView(client);
+
+                        }
+                        break;
+                }
                 logger.info(msg);
                 logger.info(client);
                 logger.info(loginView);
@@ -51,6 +65,14 @@ public class ClientReceiver extends Thread {
                 break;
             }
         }
+        shutdown();
+
+    }
+
+    private synchronized void shutdown(){
+        loginView = null;
+        mainView = null;
+        client.shutdown();
     }
 
     private synchronized void createLoginView(Client client){
