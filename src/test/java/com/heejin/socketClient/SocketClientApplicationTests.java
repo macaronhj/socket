@@ -5,6 +5,10 @@ import com.heejin.socketClient.view.LoginView;
 import com.heejin.socketClient.view.MainView;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class SocketClientApplicationTests {
 
 	@Test
@@ -15,10 +19,16 @@ class SocketClientApplicationTests {
 	@Test
 	void mainViewTest() {
 		MainView mainView = new MainView();
+
+		List online = Arrays.asList("A", "B", "C");
+		List offline = Arrays.asList("D", "E", "F");
+		mainView.changeUserList(online, offline);
 	}
 
 	@Test
 	void chatRoomViewTest() {
 		ChatRoomView chatRoomView = new ChatRoomView();
 	}
+
+
 }
