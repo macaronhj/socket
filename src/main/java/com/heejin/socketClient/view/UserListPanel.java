@@ -23,10 +23,17 @@ public class UserListPanel extends JPanel {
     private DefaultTableModel dtm_online;
     private DefaultTableModel dtm_offline;
 
+    private String userName;
 
     public UserListPanel() {
         initializeDisplay();
 
+    }
+
+    public UserListPanel(String userName) {
+        this.userName = userName;
+        initializeDisplay();
+        initialize();
     }
 
     public void initialize(){
@@ -57,6 +64,7 @@ public class UserListPanel extends JPanel {
                 return false;
             }
     	};
+
         dtm_online.setDataVector(new Vector<String>(), columnNames);
     	jtb_online.setModel(dtm_online);
 
@@ -91,20 +99,19 @@ public class UserListPanel extends JPanel {
         JPanel panel_south = new JPanel();
         JButton button_chat = new JButton("방 만들기");
         // 하단
-            button_chat.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+        button_chat.addActionListener(e -> {
+            int row = jtb_online.getSelectedRow();
+            int col = jtb_online.getSelectedColumn();
+            String cellData = getCellData(row, col);
+            logger.info("선택된 온라인 유저 셀 : {}", cellData);
 
-                }
-            });
+            CreateChattingView view = new CreateChattingView();
+        });
         panel_south.add(button_chat);
 
         JButton button_logout = new JButton("로그아웃");
-        button_logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        button_logout.addActionListener(e -> {
 
-            }
         });
         panel_south.add(button_logout);
         panel_south.setBounds(0, 500, 500, 40);
@@ -124,6 +131,10 @@ public class UserListPanel extends JPanel {
 
     public DefaultTableModel getDtm_offline() {
         return dtm_offline;
+    }
+
+    private String getCellData(int row, int col){
+        return (String) dtm_online.getValueAt(row, col);
     }
 
 }

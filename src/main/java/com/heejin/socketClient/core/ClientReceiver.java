@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.heejin.socketClient.view.ChatRoomView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +19,8 @@ public class ClientReceiver extends Thread {
     private final Client client;
     private LoginView loginView;
     private MainView mainView;
+
+    private final List<ChatRoomView> chatRoomViewList = new ArrayList<>();
 
     public ClientReceiver(Client client){
         this.client = client;
