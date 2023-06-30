@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.heejin.socketClient.view.ChatRoomView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,8 +18,7 @@ public class ClientReceiver extends Thread {
     private final Client client;
     private LoginView loginView;
     private MainView mainView;
-
-    private final List<ChatRoomView> chatRoomViewList = new ArrayList<>();
+    private List<String> userList = new ArrayList<String>();
 
     public ClientReceiver(Client client){
         this.client = client;
@@ -44,24 +42,11 @@ public class ClientReceiver extends Thread {
                             String onlineUserNames = arr[3];
                             logger.info("온라인 유저 목록 배열 : {}", onlineUserNames);
                             String[] split = onlineUserNames.split(",");
+                            Protocol.myID = split[split.length - 1];
                             createMainView(client);
-
                         }
                         break;
                 }
-                logger.info(msg);
-                logger.info(client);
-                logger.info(loginView);
-                if("Y".equals(msg)){
-                	logger.info("client.getOis().readObject().toString();: {}",client.getOis().readObject().toString());
-                	Protocol.myID = client.getOis().readObject().toString();
-                    createMainView(client);
-					if(loginView != null) {
-                        loginView.dispose();
-					}
-				} else if("N".equals(msg)) {
-					JOptionPane.showMessageDialog(loginView, "로그인에 실패했습니다.");
-				}
 
             } catch (Exception e) {
                 e.printStackTrace();
